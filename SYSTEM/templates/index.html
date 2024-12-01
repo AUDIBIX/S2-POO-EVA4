@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVA4</title>
+  <meta name="description" content="Crea tu paquete de viaje perfecto">
+  <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="form-header">
+      <h1>EVA4</h1>
+    </header>
+
+    <main>
+      <section class="form-section">
+        <form id="form-paquetes" aria-labelledby="form-title">
+          <h2 id="form-title" class="visually-hidden">Detalles del Paquete de Viaje</h2>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="pais">País:</label>
+              <select id="pais" name="pais" required aria-describedby="pais-hint">
+                <option value="" disabled selected>Selecciona un país</option>
+              </select>
+              <small id="pais-hint" class="form-hint">Elige el país de destino</small>
+            </div>
+
+            <div class="form-group">
+              <label for="ciudad">Ciudad:</label>
+              <select id="ciudad" name="ciudad" disabled required aria-describedby="ciudad-hint">
+                <option value="" disabled selected>Primero selecciona un país</option>
+              </select>
+              <small id="ciudad-hint" class="form-hint">Selecciona la ciudad de destino</small>
+            </div>
+
+            <div class="form-group">
+              <label for="fechaIda">Fecha de Ida:</label>
+              <input type="date" id="fechaIda" name="fechaIda" required aria-describedby="fechaIda-hint">
+              <small id="fechaIda-hint" class="form-hint">Selecciona tu fecha de partida</small>
+            </div>
+
+            <div class="form-group">
+              <label for="fechaRegreso">Fecha de Regreso:</label>
+              <input type="date" id="fechaRegreso" name="fechaRegreso" required aria-describedby="fechaRegreso-hint">
+              <small id="fechaRegreso-hint" class="form-hint">Selecciona tu fecha de regreso</small>
+            </div>
+
+            <div class="form-group">
+              <label for="tipoPaquete">Tipo de Paquete:</label>
+              <select id="tipoPaquete" name="tipoPaquete" required aria-describedby="tipoPaquete-hint">
+                <option value="" disabled selected>Selecciona un tipo de paquete</option>
+                <option value="con hotel">Con Hotel</option>
+                <option value="con auto">Con Auto</option>
+              </select>
+              <small id="tipoPaquete-hint" class="form-hint">Elige el tipo de paquete que prefieres</small>
+            </div>
+
+            <div class="form-group">
+              <button type="submit" class="search-button">
+                Generar Paquetes
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="results-section">
+        <div id="resultado-paquetes">
+          <h2>Paquetes Generados</h2>
+          <div class="table-responsive">
+            <table id="tabla-paquetes" class="results-table">
+              <thead>
+                <tr>
+                  <th scope="col">Destino</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Fecha de Salida</th>
+                  <th scope="col">Fecha de Regreso</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="no-results">
+                  <td colspan="5">Aún no se han generado paquetes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../static/js/index.js" defer></script>
+</body>
+</html>
