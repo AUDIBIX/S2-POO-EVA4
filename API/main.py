@@ -16,7 +16,8 @@ def get_db_connection():
             host='localhost',
             user='root',
             password='',
-            database='travel_agency'
+            database='travel_agency',
+            collation='utf8mb4_general_ci'
         )
         return connection
     except Error as e:
