@@ -1,26 +1,26 @@
 # S2-POO-EVA4
 Semestre 2 Programación Orientada a Objetos, Evaluación Sumativa 4 Semana 8
 
-#Sistema de Gestión de Viajes ✈️
+# Sistema de Gestión de Viajes ✈️
 Este proyecto es un sistema de viajes que permite a los usuarios explorar paquetes de viajes prearmados y crear sus propios paquetes personalizados según sus preferencias. El sistema está desarrollado en Python y sigue una arquitectura de Programación Orientada a Objetos (POO) con una API para la interacción con los datos.
 
-##Funcionalidades 🚀
+## Funcionalidades 🚀
 Funcionalidades principales:
 Explorar paquetes de viajes predefinidos:
 Los usuarios pueden ver y seleccionar entre diferentes paquetes de viajes ya creados que incluyen destinos, alojamiento, actividades y transporte.
 
-###Crear paquetes personalizados:
+### Crear paquetes personalizados:
 Los usuarios pueden crear un paquete de viaje personalizado eligiendo sus propios destinos, alojamiento, transporte y actividades adicionales.
 
-###Gestión de usuarios y paquetes:
+### Gestión de usuarios y paquetes:
 Registro y autenticación de usuarios.
 Visualización y modificación de los paquetes creados.
 Eliminación de paquetes de viaje.
 
-###API REST:
+### API REST:
 Una API que expone los servicios principales del sistema, permitiendo la interacción desde aplicaciones externas o clientes web.
 
-##Requisitos 📋
+## Requisitos 📋
 Para ejecutar este proyecto, se necesita:
 
 Python 3.8 o superior
@@ -30,7 +30,8 @@ Instale las dependencias ejecutando:
 ```pip install -r API/requirements.txt```
 
 
-##Estructura del proyecto 🗂️
+## Estructura del proyecto 🗂️
+```
 S2-POO-EVA4/
 ├── API/                   # Lógica de API y servicios
 │   ├── controllers/       # Controladores para manejar las solicitudes HTTP
@@ -46,15 +47,17 @@ S2-POO-EVA4/
 │   └── main.py            # Punto de entrada del sistema principal
 ├── LICENSE                # Licencia del proyecto
 └── README.md              # Este archivo
+```
 
-##Cómo ejecutar el sistema ▶️
+## Cómo ejecutar el sistema ▶️
 
-###Ejecutar la AP
+### Ejecutar la API
 Navega a la carpeta API y ejecuta el archivo main.py:
 ```python API/main.py```
+
 Esto iniciará el servidor API en http://localhost:5000 (o el puerto especificado).
 
-###Ejecutar el sistema principal
+### Ejecutar el sistema principal
 Navega a la carpeta SYSTEM y ejecuta el archivo main.py:
 ```python SYSTEM/main.py```
 
