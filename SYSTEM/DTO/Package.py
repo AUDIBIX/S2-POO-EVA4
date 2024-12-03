@@ -224,8 +224,8 @@ class Package:
                                                         selectedCountry, selectedCity, 0,
                                                         dst["fecha_inicio"], dst["fecha_fin"],
                                                         activities=dst["actividades"],
-                                                        autos=dst["autos"] if "autos" in dst else {},
-                                                        hoteles=dst["hoteles"] if "hoteles" in dst else {}))
+                                                        cars=dst["autos"] if "autos" in dst else {},
+                                                        hotels=dst["hoteles"] if "hoteles" in dst else {}))
                     
                     for destination in destination_objects:
                         print(destination)

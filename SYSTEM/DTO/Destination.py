@@ -1,7 +1,7 @@
 from SYSTEM.Utilities.Utilities import *
 
 class Destination:
-    def __init__(self, name, description, type, country, city, cost, start_date, end_date, id=None, activities=[], autos:list=[{}], hoteles:list=[{}]):
+    def __init__(self, name, description, type, country, city, cost, start_date, end_date, id=None, activities=[], cars:list=[{}], hotels:list=[{}]):
         self.__id = id
         self.__name = name
         self.__description = description
@@ -12,8 +12,8 @@ class Destination:
         self.__cost = cost
         self.__start_date = start_date
         self.__end_date = end_date
-        self.__autos = autos
-        self.__hoteles = hoteles
+        self.__cars = cars
+        self.__hotels = hotels
     
     def getId(self):
         return self.__id
@@ -46,10 +46,10 @@ class Destination:
         return self.__activities
 
     def getAutos(self):
-        return self.__autos
+        return self.__cars
     
     def getHoteles(self):
-        return self.__hoteles
+        return self.__hotels
     
     def setId(self, id):
         self.__id = id
@@ -72,11 +72,11 @@ class Destination:
     def setActivities(self, activities=[]):
         self.__activities = activities
         
-    def setAutos(self, autos={}):
-        self.__autos = autos
+    def setAutos(self, cars={}):
+        self.__cars = cars
         
-    def setHoteles(self, hoteles={}):
-        self.__hoteles = hoteles
+    def setHoteles(self, hotels={}):
+        self.__hotels = hotels
         
     def setCost(self, cost):
         self.__cost = cost
@@ -102,13 +102,13 @@ class Destination:
         txt += "Actividades: \n"
         for activity in self.__activities:
             txt += f" -{activity}\n"
-        if autos :=self.__autos:
+        if cars :=self.__cars:
             txt += "Autos: \n"
-            for auto in autos:
-                txt += f" -{auto}\n"
-        elif hoteles := self.__hoteles:
+            for car in cars:
+                txt += f" -{car}\n"
+        elif hotels := self.__hotels:
             txt += "Hoteles: \n"
-            for hotel in hoteles:
+            for hotel in hotels:
                 txt += f" > {hotel["nombre"]} <\n"
                 txt += f" -Precio por noche: ${hotel['precio_noche']}\n"
                 txt += f" -Cantidad de estrellas: ✰{hotel['estrellas']}\n"
