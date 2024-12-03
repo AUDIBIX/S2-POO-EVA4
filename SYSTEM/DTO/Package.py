@@ -1,4 +1,5 @@
 from SYSTEM.Utilities.Utilities import *
+from SYSTEM.DAO.Api import Api
 import datetime
 
 class Package:
@@ -138,9 +139,7 @@ class Package:
     
     def generateDestination(self):
         from SYSTEM.DTO.Destination import Destination
-        from SYSTEM.DAO.Api import Api
         import random
-
         while True:
             try:
                 response = Api.getCountries()
@@ -151,7 +150,7 @@ class Package:
                 for index, (countryId ,countryName )in enumerate(countries, start=1):
                     print(f"{index}. {countryName}")
                 selectCountries = int(input("Seleccione el pais: ")) - 1
-                selectedCountry = countries[selectCountries] #elegimos el elemento de lista segun la eleccion
+                selectedCountry = countries[selectCountries] #elejimos el elemento de lista segun la eleccion
                 countryId = selectedCountry[0] # futuros usos extraemos el id
 
 
@@ -169,14 +168,12 @@ class Package:
                 cityId = selectedCity[0]
 
 
-
                 dateStart = input("Ingrese la fecha de ida: ")
                 dateEnd = input("Ingrese la fecha de regreso: ")
 
 
-
                 print_options(["Vuelo + Hotel", "Vuelo + Auto"])
-                selectType = valid_input("Seleccione el tipo de destino: ", "Selección no válida", int, lambda x : x in [1, 2])
+                selectType = valid_input("Seleccione el tipo de paquete: ", "Opcion no valida", int, lambda x: x in [1, 2]) - 1
 
 
                 destinations = []
@@ -192,13 +189,11 @@ class Package:
                     activities = activitiesResponse['data']
                     selectedActivities = random.sample(activities, min(3, len(activities)))
                     destination = {
-                        
                         "fecha_inicio": dateStart,
                         "fecha_fin": dateEnd,
-                        "actividades": [activity['name'] for activity in selectedActivities]
-                    }
+                        "actividades": [activity['name'] for activity in selectedActivities]}
 
-                    if selectType == 1:
+                    if selectType == 0:
                         hotelsResponse = Api.getHotelsCities(cityId)
                         if not hotelsResponse.get("success", False):
                             print("No se pudieron obtener los hoteles")
@@ -208,7 +203,8 @@ class Package:
                         destination["hoteles"] = [{"nombre": hotel["name"], 
                                             "precio_noche": hotel["price_per_night"], 
                                             "estrellas": hotel["stars"]} for hotel in selected_hotels]
-                    elif selectType == 2:
+                        
+                    elif selectType == 1:
                         carsResponse = Api.getCarsCities(cityId)
                         if not carsResponse.get("success", False):
                             print("No se pudieron obtener los autos")
@@ -218,32 +214,35 @@ class Package:
                         destination["autos"] = [{"nombre": car["model"], 
                                             "marca": car["brand"], 
                                             "precio_dia": car["price_per_day"]} for car in selected_cars]
-
-                    dest = Destination(dest.index + 1, "", "Vuelo + Hotel" if selectType == 1 else "Vuelo + Auto", selectedCountry, selectedCity, 0, dateStart, dateEnd)
-                    destinations.append(dest)
+                    destinations.append(destination)
                 
-                for index, pkg in enumerate(destinations, start=1):
-                    print(f"\nDestino: {index}")
-                    print("fecha de ida:", pkg["fecha_inicio"])
-                    print("fecha de regreso:", pkg["fecha_fin"])
-
-                    print("Actividades:")
-                    for activity in pkg["actividades"]:
-                        print(f"- {activity}")
-                    if "hoteles" in pkg:
-                        print("Hoteles:")
-                        for hotel in pkg["hoteles"]:
-                            print(f"  - {hotel['nombre']} (Precio por noche: {hotel['precio_noche']} CLP, Estrellas: {hotel['estrellas']})")
-                    if "autos" in pkg:
-                        print("Autos:")
-                        for auto in pkg["autos"]:
-                            print(f"  - {auto['nombre']} (Marca: {auto['marca']}, Precio por día: {auto['precio_dia']} CLP)")
-                
-                selectedDestination = valid_input("Seleccione el paquete que desea agregar: ", "Opcion no valida", int, lambda x: x in range(1, len(destinations) + 1))
-                self.addDestination(destinations[selectedDestination - 1])
-
-                continuar = input("\n¿Desea generar otro paquete? (s/n): ").strip().lower()
-                if continuar != 's':
+                destination_objects = []
+                for index, dst in enumerate(destinations, start=1):
+                    dst['nombre'] = f"Destino {index}"
+                    destination_objects.append(Destination(dst['nombre'], "", 
+                                                        "Vuelo + Hotel" if selectType == 0 else "Vuelo + Auto",
+                                                        selectedCountry, selectedCity, 0,
+                                                        dst["fecha_inicio"], dst["fecha_fin"],
+                                                        activities=dst["actividades"],
+                                                        autos=dst["autos"] if "autos" in dst else {},
+                                                        hoteles=dst["hoteles"] if "hoteles" in dst else {}))
+                    
+                    for destination in destination_objects:
+                        print(destination)
+                    
+                    destination_names = [destination.getName() for destination in destination_objects]
+                    
+                if valid_input("Desea reservar un paquete? (s/n): ", "Opcion no valida", str, lambda x: x.lower() in ['s', 'n']) == "s":
+                    print_options(destination_names)
+                    selectedDestination = valid_input("Seleccione el destino: ", "Opcion no valida", int, lambda x: x in range(1, len(destination_names) + 1))
+                    selectedDestination = destination_objects[selectedDestination - 1]
+                    print(selectedDestination)
+                    if valid_input("Confirme su seleccion para reservar el paquete (s/n): ", "Opcion no valida", str, lambda x: x.lower().strip() in ['s', 'n']):
+                        self.addDestination(selectedDestination)
+                        print("Paquete reservado con exito")
+                    
+                continuar = valid_input("Desea revisar otras opciones? (s/n): ", "Opcion no valida", str, lambda x: x.lower().strip() in ['s', 'n'])
+                if continuar == "n":
                     break
             except ValueError as ve:
                 print(f"Error de entrada: {ve}")

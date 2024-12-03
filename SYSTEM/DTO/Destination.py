@@ -1,16 +1,19 @@
 from SYSTEM.Utilities.Utilities import *
 
 class Destination:
-    def __init__(self, name, description, type, country, city, cost, start_date, end_date, id=None):
+    def __init__(self, name, description, type, country, city, cost, start_date, end_date, id=None, activities=[], autos:list=[{}], hoteles:list=[{}]):
         self.__id = id
         self.__name = name
         self.__description = description
         self.__type = type
         self.__country = country
         self.__city = city
+        self.__activities = activities
         self.__cost = cost
         self.__start_date = start_date
         self.__end_date = end_date
+        self.__autos = autos
+        self.__hoteles = hoteles
     
     def getId(self):
         return self.__id
@@ -39,6 +42,15 @@ class Destination:
     def getEndDate(self):
         return self.__end_date
     
+    def getActivities(self):
+        return self.__activities
+
+    def getAutos(self):
+        return self.__autos
+    
+    def getHoteles(self):
+        return self.__hoteles
+    
     def setId(self, id):
         self.__id = id
     
@@ -56,6 +68,15 @@ class Destination:
         
     def setCity(self, city):
         self.__city = city
+    
+    def setActivities(self, activities=[]):
+        self.__activities = activities
+        
+    def setAutos(self, autos={}):
+        self.__autos = autos
+        
+    def setHoteles(self, hoteles={}):
+        self.__hoteles = hoteles
         
     def setCost(self, cost):
         self.__cost = cost
@@ -66,16 +87,34 @@ class Destination:
     def setEndDate(self, end_date):
         self.__end_date = end_date
     
+    def addActivity(self, activity):
+        self.__activities.append(activity)
+        
     def __str__(self):
-        txt = f"Nombre: {self.__name}"
-        txt += f"\nDescripcion: {self.__description}"
-        txt += f"\nPais: {self.__country}"
-        txt += f"\nCiudad: {self.__city}"
-        txt += f"\nTipo: {self.__type}"
-        txt += f"\nCosto: {self.__cost}"
-        txt += f"\nFecha de inicio: {self.__start_date}"
-        txt += f"\nFecha de fin: {self.__end_date}"
+        txt = f"\nNombre: {self.__name}\n"
+        txt += f"Descripcion: {self.__description}\n"
+        txt += f"Tipo: {self.__type}\n"
+        txt += f"Pais: {self.__country}\n"
+        txt += f"Ciudad: {self.__city}\n"
+        txt += f"Costo: {self.__cost}\n"
+        txt += f"Fecha de inicio: {self.__start_date}\n"
+        txt += f"Fecha de fin: {self.__end_date}\n"
+        txt += "Actividades: \n"
+        for activity in self.__activities:
+            txt += f" -{activity}\n"
+        if autos :=self.__autos:
+            txt += "Autos: \n"
+            for auto in autos:
+                txt += f" -{auto}\n"
+        elif hoteles := self.__hoteles:
+            txt += "Hoteles: \n"
+            for hotel in hoteles:
+                txt += f" > {hotel["nombre"]} <\n"
+                txt += f" -Precio por noche: ${hotel['precio_noche']}\n"
+                txt += f" -Cantidad de estrellas: ✰{hotel['estrellas']}\n"
         return txt
+    
+    
     
     def edit(self):
         print("Que desea modificar?")
@@ -99,5 +138,4 @@ class Destination:
             self.setEndDate(input("Ingrese la nueva fecha de fin: "))
         else:
             print("Opcion no valida")
-
         return self
