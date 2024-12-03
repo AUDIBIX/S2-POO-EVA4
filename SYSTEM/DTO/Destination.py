@@ -39,6 +39,9 @@ class Destination:
     def getEndDate(self):
         return self.__end_date
     
+    def setId(self, id):
+        self.__id = id
+    
     def setName(self, name):
         self.__name = name
         
