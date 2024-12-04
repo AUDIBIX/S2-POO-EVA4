@@ -50,9 +50,7 @@ S2-POO-EVA4/
 ```
 
 # Cómo ejecutar el sistema ▶️
-Hay dos opciones, instalar las librerías manualmente o utilizar un entorno virtual.
-Ejecutar manualmente es más rápido, pero menos conveniente. Al no especificar las versiones de las subdependencias, es más probable que se interponga un error.
-Utilizar un entorno virtual no solo es más estable, si no que también mantiene libre de archivos la computadora, instalando las dependencias directamente en el entorno virtual del proyecto.
+Existen dos opciones: instalar las librerías manualmente o utilizar un entorno virtual. La instalación manual es más rápida, pero menos conveniente. Al no especificar las versiones de las subdependencias, es más probable que se presenten errores. Por otro lado, utilizar un entorno virtual no solo ofrece mayor estabilidad, sino que también mantiene limpia la computadora al instalar las dependencias directamente en el entorno virtual del proyecto.
 
 ## Instalar las librerías manualmente
 
