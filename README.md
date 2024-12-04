@@ -49,15 +49,42 @@ S2-POO-EVA4/
 └── README.md              # Este archivo
 ```
 
-## Cómo ejecutar el sistema ▶️
+# Cómo ejecutar el sistema ▶️
+Hay dos opciones, instalar las librerías manualmente o utilizar un entorno virtual
+
+## Instalar las librerías manualmente
+
+### Instalar las dependencias
+Desde la carpeta principal, ejecute:
+```pip install -r API/requirements.txt```
 
 ### Ejecutar la API
 Navega a la carpeta API y ejecuta el archivo main.py:
 ```python API/main.py```
-
 Esto iniciará el servidor API en http://localhost:5000 (o el puerto especificado).
 
 ### Ejecutar el sistema principal
 Navega a la carpeta SYSTEM y ejecuta el archivo main.py:
 ```python SYSTEM/main.py```
 
+## Utilizar un entorno virtual
+
+### Instalar pipenv
+Si no se tiene instalado pipenv, ejecute:
+```pip install pipenv```
+
+### Instalar las dependencias
+Para instalar las dependencias del programa, ejecute:
+```pipenv install```
+
+### Ejecutar una terminal en la carpeta principal
+Abra una terminal en la carpeta principal y cree un entorno virtual con:
+```pipenv shell```
+
+### Ejecutar la API
+Para ejecutar la API, ejecute:
+```pipenv run python API/main.py```
+
+### Ejecutar el sistema principal
+Finalmente, para ejecutar el sistema principal, ejecute:
+```pipenv run python main.py```
