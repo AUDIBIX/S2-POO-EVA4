@@ -1,4 +1,5 @@
 from typing import Optional
+from ..Utilities.Utilities import *
 class UserDto:
     def __init__(self, userId: int, name: Optional[str] = None, lastName: Optional[str] = None,                 #java util.Optional indica que un atributo es opcional 
                  rut: Optional[str] = None, mail: Optional[str] = None, typeUser: Optional[str] = 'CLIENTE' ):  #para entender mas los valores a futuro 
@@ -34,7 +35,6 @@ class UserDto:
         self.__mail = mail
     def setTypeUser(self, typeUser):
         self.__typeUser = typeUser
-
 
     def __str__(self):
         txt = f"Nombre: {self.__name} {self.__lastName}\n"

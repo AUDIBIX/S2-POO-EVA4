@@ -1,55 +1,36 @@
-import requests 
-
-API_URL = 'http://127.0.0.1:5000/'
+import requests
+GEONAMES_USERNAME = 'josiastorres20'
+GEONAMES_API_URL = 'http://api.geonames.org'
 
 class Api:
     def _init_(self):
         pass
 
     def getCountries():
-        url = f"{API_URL}/api/paises"
-        response = requests.get (url)
+        url = f"{GEONAMES_API_URL}/countryInfoJSON"
+        params = {"username": GEONAMES_USERNAME}
+        response = requests.get(url, params=params)
         if response.status_code == 200:
-            return response.json()
+            countries = response.json().get("geonames", [])
+            return [
+                {"name": country["countryName"], "code": country["countryCode"]}
+                for country in countries
+            ]
         else:
             raise Exception("Error al obtener los paises")
         
-    def getCountryId(countryId):
-        url = f"{API_URL}/api/paises/{countryId}"
-        response = requests.get(url)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception("Error al obtener los paises")
         
-    def getCitiesCountries(countryId):
-        url = f"{API_URL}/api/paises/{countryId}/ciudades"
-        response = requests.get(url)
+    def getCitiesCountries(countryCode):
+        url = f"{GEONAMES_API_URL}/searchJSON"
+        params = {
+            "country": countryCode,
+            "featureClass": "P", 
+            "maxRows": 10, 
+            "username": GEONAMES_USERNAME
+        }
+        response = requests.get(url, params=params)
         if response.status_code == 200:
-            return response.json()
+            cities = response.json().get("geonames", [])
+            return [city["name"] for city in cities]
         else:
-            raise Exception("Error al obtener las ciudades")
-        
-    def getActivitiesCities(cityId):
-        url = f"{API_URL}/api/ciudades/{cityId}/actividades"
-        response = requests.get(url)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception("Error al obtener las actividades")
-        
-    def getCarsCities(cityId):
-        url = f"{API_URL}/api/ciudades/{cityId}/autos"
-        response = requests.get(url)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception("Error al obtener los autos")
-        
-    def getHotelsCities(cityId):
-        url = f"{API_URL}/api/ciudades/{cityId}/hoteles"
-        response = requests.get(url)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception("Error al obtener los hoteles")
+            raise Exception(f"Error al obtener las ciudades del pais {countryCode}")
