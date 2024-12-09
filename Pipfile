@@ -8,6 +8,7 @@ requests = "*"
 flask = "*"
 flask-cors = "*"
 mysql-connector-python = "*"
+bcrypt = "*"
 
 [dev-packages]
 
